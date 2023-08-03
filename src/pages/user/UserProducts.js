@@ -12,7 +12,7 @@ import Banner from "../../components/common/Banner";
 
 const UserProducts = () => {
   const navigate = useNavigate();
-  const [cart, setCart] = useCart();
+  const { handleAddToCart } = useCart();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -155,7 +155,7 @@ const UserProducts = () => {
             </div>
             <div className="d-flex flex-column">
               <button
-                className="btn btn-danger"
+                className="cart-btn"
                 // onClick={() => window.location.reload()}
                 onClick={resetFilterHandle}
               >
@@ -168,8 +168,8 @@ const UserProducts = () => {
               {products && products.length > 0 ? (
                 <>
                   {products?.map((p) => (
-                    <div className="col-md-4 col-12">
-                      <div className="card m-2" key={p._id}>
+                    <div className="col-md-4 col-12" key={p._id}>
+                      <div className="card m-2">
                         <img
                           src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                           className="userproduct-img"
@@ -190,20 +190,21 @@ const UserProducts = () => {
                           </p>
                           <div className="card-name-price d-flex justify-content-center justify-content-md-start gap-1">
                             <button
-                              className="btn btn-info btn-sm text-uppercase text-white"
+                              className="bordered-btn"
                               onClick={() => navigate(`/product/${p.slug}`)}
                             >
                               More Details
                             </button>
                             <button
-                              className="btn btn-dark btn-sm "
+                              className="boxed-btn"
                               onClick={() => {
-                                setCart([...cart, p]);
-                                localStorage.setItem(
-                                  "cart",
-                                  JSON.stringify([...cart, p])
-                                );
-                                toast.success("Item Added to cart");
+                                handleAddToCart(p);
+                                // setCart([...cart, p]);
+                                // localStorage.setItem(
+                                //   "cart",
+                                //   JSON.stringify([...cart, p])
+                                // );
+                                // toast.success("Item Added to cart");
                               }}
                             >
                               ADD TO CART
@@ -226,7 +227,7 @@ const UserProducts = () => {
             <div className="m-2 p-3 d-flex align-items-center justify-content-center">
               {products && products.length < total && (
                 <button
-                  className="btn btn-secondary text-white loadmore"
+                  className="cart-btn loadmore"
                   onClick={(e) => {
                     e.preventDefault();
                     setPage(page + 1);

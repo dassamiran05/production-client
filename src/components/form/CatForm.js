@@ -12,7 +12,7 @@ const CatForm = ({ setValue, value, handleSubmit, edit = false }) => {
           onChange={(e) => setValue(e.target.value)}
         />
       </div>
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="cart-btn">
         {edit ? "Update Category" : "Create category"}
       </button>
     </form>

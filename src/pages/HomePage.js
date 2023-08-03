@@ -27,7 +27,7 @@ const { Option } = Select;
 
 const HomePage = () => {
   // const [auth, setAuth] = useAuth();
-  const [cart, setCart] = useCart();
+  const {cart, setCart, handleAddToCart} = useCart();
   const categories = useCategory();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -102,11 +102,9 @@ const HomePage = () => {
     }
   };
 
-  const handlecategoryName = id => {
-    return categories.find(category => category._id === id)?.name;
-  }
-
-
+  const handlecategoryName = (id) => {
+    return categories.find((category) => category._id === id)?.name;
+  };
 
   return (
     <Layout title="Home - Ecommerce app">
@@ -180,17 +178,10 @@ const HomePage = () => {
                         key={indx + 1}
                       >
                         <div className="single-product-item">
-                          {/* <div className="product-image ">
-                      <Link to={`/product/${p.slug}`}>
-                        <img
-                          src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
-                          className="w-100 rounded mb-3"
-                          alt
-                        />
-                      </Link>
-                      
-                    </div> */}
-                          <Badge.Ribbon text={handlecategoryName(p?.category)} color="#f28123">
+                          <Badge.Ribbon
+                            text={handlecategoryName(p?.category)}
+                            color="#f28123"
+                          >
                             <div className="product-image ">
                               <Link to={`/product/${p.slug}`}>
                                 <img
@@ -205,14 +196,17 @@ const HomePage = () => {
                           <p className="product-price">${p?.price} </p>
                           <button
                             className="cart-btn"
-                            onClick={() => {
-                              setCart([...cart, p]);
-                              localStorage.setItem(
-                                "cart",
-                                JSON.stringify([...cart, p])
-                              );
-                              toast.success("Item Added to cart");
-                            }}
+                            onClick={() =>
+                              //   {
+                              //   setCart([...cart, p]);
+                              //   localStorage.setItem(
+                              //     "cart",
+                              //     JSON.stringify([...cart, p])
+                              //   );
+                              //   toast.success("Item Added to cart");
+                              // }
+                              handleAddToCart(p)
+                            }
                           >
                             <BsFillCartFill /> Add to Cart
                           </button>
@@ -238,7 +232,10 @@ const HomePage = () => {
                             />
                           </Link>
                         </div> */}
-                        <Badge.Ribbon text={handlecategoryName(p?.category)} color="#f28123">
+                        <Badge.Ribbon
+                          text={handlecategoryName(p?.category)}
+                          color="#f28123"
+                        >
                           <div className="product-image ">
                             <Link to={`/product/${p.slug}`}>
                               <img
@@ -253,14 +250,17 @@ const HomePage = () => {
                         <p className="product-price">${p?.price} </p>
                         <button
                           className="cart-btn"
-                          onClick={() => {
-                            setCart([...cart, p]);
-                            localStorage.setItem(
-                              "cart",
-                              JSON.stringify([...cart, p])
-                            );
-                            toast.success("Item Added to cart");
-                          }}
+                          onClick={() => 
+                          //   {
+                          //   setCart([...cart, p]);
+                          //   localStorage.setItem(
+                          //     "cart",
+                          //     JSON.stringify([...cart, p])
+                          //   );
+                          //   toast.success("Item Added to cart");
+                          // }
+                          handleAddToCart(p)
+                        }
                         >
                           <BsFillCartFill /> Add to Cart
                         </button>

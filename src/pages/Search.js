@@ -2,8 +2,13 @@ import React from "react";
 import { useSearch } from "../context/search";
 import Layout from "../components/layout/Layout";
 import Banner from "../components/common/Banner";
+import { useCart } from "../context/cart";
+import { useNavigate } from "react-router-dom";
 const Search = () => {
   const [values, setValues] = useSearch();
+  console.log(values);
+  const { handleAddToCart } = useCart();
+  const navigate = useNavigate();
   return (
     <Layout title={"Search results"}>
       <Banner subheading="Lorem ipsum lorem" heading="Search Page" />
@@ -17,7 +22,7 @@ const Search = () => {
           </h4>
           {/* <div className="d-flex flex-wrap mt-4"> */}
           <div className="row">
-            {values?.results.map((p) => (
+            {values?.results?.map((p) => (
               <div className="col-md-4 col-12">
                 <div className="card m-2">
                   <img
@@ -26,19 +31,22 @@ const Search = () => {
                     alt={p.name}
                   />
                   <div className="card-body">
-                    <h5 className="card-title">{p.name}</h5>
+                    <h5 className="card-title">{p?.name}</h5>
                     <p className="card-text">
                       {p.description.substring(0, 30)}...
                     </p>
-                    <p className="card-text"> $ {p.price}</p>
+                    <p className="card-text"> $ {p?.price}</p>
                     <div className="card-name-price d-flex justify-content-className= gap-2">
                       <button
-                        className="btn btn-info btn-sm text-uppercase text-white"
-                        // onClick={() => navigate(`/product/${p.slug}`)}
+                        className="bordered-btn"
+                        onClick={() => navigate(`/product/${p?.slug}`)}
                       >
                         More Details
                       </button>
-                      <button className="btn btn-dark btn-sm">
+                      <button
+                        className="boxed-btn"
+                        onClick={() => handleAddToCart(p)}
+                      >
                         ADD TO CART
                       </button>
                     </div>

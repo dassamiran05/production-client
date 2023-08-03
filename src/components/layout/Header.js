@@ -10,7 +10,7 @@ import { useCart } from "../../context/cart";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
-  const [cart, setCart] = useCart();
+  const {cart, setCart} = useCart();
   const navigate = useNavigate();
 
   const categories = useCategory();
@@ -83,15 +83,11 @@ const Header = () => {
                 </ul>
               </li>
 
-              {auth?.user?.role === 0 && (
-                <>
-                  <li className="nav-item">
-                    <NavLink to="/products" className="nav-link">
-                      Products
-                    </NavLink>
-                  </li>
-                </>
-              )}
+              <li className="nav-item">
+                <NavLink to="/products" className="nav-link">
+                  Products
+                </NavLink>
+              </li>
 
               {!auth?.user ? (
                 <>

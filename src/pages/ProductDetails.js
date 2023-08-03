@@ -4,9 +4,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./ProductDetailsStyles.css";
 import Layout from "../components/layout/Layout";
 import Banner from "../components/common/Banner";
+import { Typography } from "antd";
+import { useCart } from "../context/cart";
+
+const { Text } = Typography;
 
 const ProductDetails = () => {
   const params = useParams();
+  const { handleAddToCart } = useCart();
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
@@ -56,7 +61,26 @@ const ProductDetails = () => {
             {/* <h1 className="text-center">Product Details</h1>
             <hr /> */}
             <h6>Name : {product.name}</h6>
+            <h6>
+              Catgeory: <Text mark>{product?.category?.name}</Text>
+            </h6>
             <h6>Description : {product.description}</h6>
+            {/* <div className="d-flex gap-3 mt-2 shadow-lg w-40 py-2 px-1">
+              <p className="d-flex align-items-center justify-content-center">Qty:</p>
+              <p
+                className="d-flex align-items-center justify-content-center px-3 py-1  rounded-md"
+                onClick={() => handleAddToCart(product)}
+              >
+                -
+              </p>
+              <p className="d-flex align-items-center justify-content-center">{product?.qty}</p>
+              <p
+                className="d-flex align-items-center justify-content-center px-3 py-1  rounded-md"
+                onClick={() => handleAddToCart(product)}
+              >
+                +
+              </p>
+            </div> */}
             <h6>
               Price :
               {product?.price?.toLocaleString("en-US", {
@@ -64,10 +88,10 @@ const ProductDetails = () => {
                 currency: "USD",
               })}
             </h6>
-            <h6>Category : {product?.category?.name}</h6>
             <button
               className="btn btn-secondary ms-1 cart-btn"
               style={{ width: "30%" }}
+              onClick={() => handleAddToCart(product)}
             >
               ADD TO CART
             </button>
@@ -75,7 +99,7 @@ const ProductDetails = () => {
         </div>
 
         <hr />
-        <div className="row similar-products">
+        <div className="row similar-products mb-3">
           <h4>Similar Products ➡️</h4>
           {relatedProducts.length < 1 && (
             <p className="text-center">No Similar Products found</p>
@@ -101,15 +125,15 @@ const ProductDetails = () => {
                   <p className="card-text ">
                     {p.description.substring(0, 60)}...
                   </p>
-                  <div className="card-name-price">
+                  <div className="card-name-price d-flex align-items-center justify-content-center gap-1">
                     <button
-                      className="btn btn-info ms-1"
+                      className="bordered-btn"
                       onClick={() => navigate(`/product/${p.slug}`)}
                     >
                       More Details
                     </button>
                     <button
-                      className="btn btn-dark ms-1"
+                      className="boxed-btn"
                       // onClick={() => {
                       //   setCart([...cart, p]);
                       //   localStorage.setItem(
@@ -118,6 +142,7 @@ const ProductDetails = () => {
                       //   );
                       //   toast.success("Item Added to cart");
                       // }}
+                      onClick={() => handleAddToCart(p)}
                     >
                       ADD TO CART
                     </button>

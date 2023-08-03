@@ -512,12 +512,38 @@ a.boxed-btn {
   padding: 10px 20px;
 }
 
+button.boxed-btn{
+  font-family: "Poppins", sans-serif;
+  display: inline-block;
+  background-color: #f28123;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
 a.bordered-btn {
   font-family: "Poppins", sans-serif;
   display: inline-block;
   color: #fff;
   border: 2px solid #f28123;
   padding: 7px 20px;
+}
+
+.cart-remove-btn button{
+  border-radius: 50px;
+}
+
+button.bordered-btn {
+  font-family: "Poppins", sans-serif;
+  display: inline-block;
+  color: #f28123;
+  border: 2px solid #f28123;
+  padding: 5px 10px;
+  border-radius: 50px;
+  background-color: transparent;
+  font-size: 14px;
 }
 
 a.read-more-btn {
@@ -536,7 +562,8 @@ a.read-more-btn:hover {
 
 a.boxed-btn,
 a.bordered-btn,
-a.cart-btn {
+a.cart-btn,
+button.boxed-btn {
   border-radius: 50px;
 }
 
@@ -1113,18 +1140,18 @@ a.boxed-btn {
   transition: 0.3s;
 }
 
-a.boxed-btn:hover {
+a.boxed-btn:hover, button.boxed-btn:hover {
   background-color: #051922;
   color: #f28123;
 }
 
-a.bordered-btn {
+a.bordered-btn, button.bordered-btn  {
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
 }
 
-a.bordered-btn:hover {
+a.bordered-btn:hover, button.bordered-btn:hover {
   background-color: #f28123;
   color: #fff;
 }
@@ -2646,6 +2673,18 @@ a.cart-btn {
   color: #fff;
   padding: 10px 20px;
 }
+
+/* .cart-border-btn{
+  font-family: "Poppins", sans-serif;
+  display: inline-block;
+  background-color: transparent;
+  border: 2px sloid #f28123;
+  color: #f28123;
+  border-radius: 50px;
+  padding: 10px 20px;
+  outline: none;
+} */
+
 button.cart-btn {
   font-family: "Poppins", sans-serif;
   display: inline-block;

@@ -4,11 +4,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Layout from "../components/layout/Layout";
 import Banner from "../components/common/Banner";
+import { useCart } from "../context/cart";
 const SingleCategoryProduct = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
+  const { cart, setCart, handleAddToCart } = useCart();
 
   useEffect(() => {
     if (params?.slug) getPrductsByCat();
@@ -27,7 +29,10 @@ const SingleCategoryProduct = () => {
 
   return (
     <Layout title="Category Product">
-      <Banner subheading="Lorem ipsum loren" heading="Single category product"/>
+      <Banner
+        subheading="Lorem ipsum loren"
+        heading="Single category product"
+      />
       <div className="container my-5 category">
         <h4 className="text-center">Category - {category?.name}</h4>
         <h6 className="text-center">Found {products?.length} results</h6>
@@ -55,26 +60,29 @@ const SingleCategoryProduct = () => {
                   <p className="card-text ">
                     {p.description.substring(0, 60)}...
                   </p>
-                  <div className="card-name-price">
+                  <div className="card-name-price d-flex align-items-center gap-2">
                     <button
-                      className="btn btn-info ms-1"
+                      className="bordered-btn"
                       onClick={() => navigate(`/product/${p.slug}`)}
                     >
                       More Details
                     </button>
-                    {/* <button
-                    className="btn btn-dark ms-1"
-                    onClick={() => {
-                      setCart([...cart, p]);
-                      localStorage.setItem(
-                        "cart",
-                        JSON.stringify([...cart, p])
-                      );
-                      toast.success("Item Added to cart");
-                    }}
-                  >
-                    ADD TO CART
-                  </button> */}
+                    <button
+                      className="boxed-btn"
+                      onClick={() =>
+                        //   {
+                        //   setCart([...cart, p]);
+                        //   localStorage.setItem(
+                        //     "cart",
+                        //     JSON.stringify([...cart, p])
+                        //   );
+                        //   toast.success("Item Added to cart");
+                        // }
+                        handleAddToCart(p)
+                      }
+                    >
+                      ADD TO CART
+                    </button>
                   </div>
                 </div>
               </div>

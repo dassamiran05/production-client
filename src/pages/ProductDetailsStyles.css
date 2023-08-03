@@ -28,14 +28,14 @@
   color: green;
   font-weight: bold;
 }
-.similar-products button {
-  /*  border-radius: 0; */
+/* .similar-products button {
+   border-radius: 0;
   width: 100%;
-  /* border-top-left-radius: 5px; */
-  /* border-bottom-right-radius: 5px; */
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   font-size: 14px;
-  /* font-weight: bold; */
-}
+  font-weight: bold;
+} */
 
 .similar-products .card-text {
   color: rgb(90, 89, 89);

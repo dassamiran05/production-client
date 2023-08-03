@@ -35,8 +35,8 @@ function App() {
       <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/product/:slug" element={<ProductDetails />} />
-          <Route path="/category/:slug" element={<SingleCategoryProduct />} />Z
-          <Route path="/cart" element={<CartPage />} />Z
+          <Route path="/category/:slug" element={<SingleCategoryProduct />} />
+          <Route path="/cart" element={<CartPage />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/search" element={<Search />} />
           <Route path="/dashboard" element={<PrivateRoute />}>
