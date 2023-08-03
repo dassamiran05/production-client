@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 const CartContext = createContext();
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  console.log(cart);
 
   useEffect(() => {
     let existingCartItem = localStorage.getItem("cart")

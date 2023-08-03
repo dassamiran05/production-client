@@ -5,7 +5,6 @@
 .product-details-info {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: center;
 }
 
@@ -28,25 +27,13 @@
   color: green;
   font-weight: bold;
 }
-/* .similar-products button {
-   border-radius: 0;
-  width: 100%;
-  border-top-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  font-size: 14px;
-  font-weight: bold;
-} */
 
 .similar-products .card-text {
   color: rgb(90, 89, 89);
 }
-.similar-products .card img{
+.similar-products .card img {
   transition: all 400ms ease;
 }
 .similar-products .card img:hover {
   transform: scale(1.1);
 }
-
-/* .similar-products .card-img-top {
-    height: 300px !important;
-  } */

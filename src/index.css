@@ -6,10 +6,7 @@
   box-sizing: border-box;
 }
 
-/* font-family: 'Playfair Display', serif;
-font-family: 'Poppins', sans-serif; */
 
-/* Navbar css */
 .navbar {
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
@@ -45,8 +42,7 @@ font-family: 'Poppins', sans-serif; */
   text-transform: uppercase;
 }
 
-/* =================================
-======== page not found css ======= */
+
 .pnf {
   display: flex;
   min-height: 65vh;
@@ -76,27 +72,7 @@ font-family: 'Poppins', sans-serif; */
   color: white;
 }
 
-/* -----------------------------------------------------------------------------
 
-# Base - Genral & Typography
-
------------------------------------------------------------------------------ */
-/* html {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 28px;
-  height: 100%;
-} */
-
-/* body {
-  font-family: "Open Sans", sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  letter-spacing: 0.1px;
-  line-height: 1.8;
-  color: #051922;
-  overflow-x: hidden;
-} */
 
 body img {
   max-width: 100%;
@@ -148,83 +124,7 @@ h6:last-child,
   margin: 0;
 }
 
-/* h1, .h1 {
-  font-size: 4rem;
-  font-weight: 700;
-  line-height: 4rem;
-} */
 
-/* @media only screen and (max-width: 767.96px) {
-  h1, .h1 {
-    font-size: 3rem;
-    line-height: 3.25rem;
-  }
-}
-
-@media only screen and (max-width: 575.96px) {
-  h1, .h1 {
-    font-size: 2.5rem;
-    line-height: 2.75rem;
-  }
-}
-
-h2, .h2 {
-  font-size: 3rem;
-  font-weight: 700;
-  line-height: 3.25rem;
-}
-
-@media only screen and (max-width: 767.96px) {
-  h2, .h2 {
-    font-size: 2.5rem;
-    line-height: 2.75rem;
-  }
-}
-
-@media only screen and (max-width: 575.96px) {
-  h2, .h2 {
-    font-size: 2rem;
-    line-height: 2.25rem;
-  }
-}
-
-h3, .h3 {
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 2.25rem;
-}
-
-@media only screen and (max-width: 575.96px) {
-  h3, .h3 {
-    font-size: 1.75rem;
-    line-height: 2rem;
-  }
-}
-
-h4, .h4 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.75rem;
-}
-
-@media only screen and (max-width: 575.96px) {
-  h4, .h4 {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
-  }
-}
-
-h5, .h5 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.5rem;
-}
-
-h6, .h6 {
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.5rem;
-} */
 
 p {
   font-family: "Open Sans", sans-serif;
@@ -253,35 +153,7 @@ p:last-child {
   font-weight: 500;
 }
 
-/* -----------------------------------------------------------------------------
 
-# All Common Styles
-
------------------------------------------------------------------------------ */
-/* .loader {
-  bottom: 0;
-  height: 100%;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  width: 100%;
-  z-index: 1111;
-  background: #fff;
-  overflow-x: hidden;
-}
-
-.loader-inner {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  height: 50px;
-  width: 50px;
-} */
 
 .circle {
   width: 8vmax;
@@ -645,14 +517,8 @@ button.boxed-btn {
   opacity: 0.8;
 }
 
-/* -----------------------------------------------------------------------------
 
-# Header Styles
 
------------------------------------------------------------------------------ */
-/* ul.navbar-nav li.nav-item a.nav-link, ul.navbar-nav li.nav-item.active a.nav-link {
-  color: #051922;
-} */
 
 .top-header-area {
   position: absolute;
@@ -666,11 +532,7 @@ button.boxed-btn {
   color: #fff;
 }
 
-/* ul.navbar-nav li.nav-item a.nav-link, ul.navbar-nav li.nav-item.active a.nav-link {
-  color: #fff;
-  font-weight: 700;
-  margin-right: 14px;
-} */
+
 
 a.navbar-brand img {
   max-width: 150px;
@@ -864,7 +726,7 @@ nav.main-menu li a {
   transition: 0.3s;
 }
 
-*/ .search-area {
+.search-area {
   position: fixed;
   left: 0;
   top: 0;
@@ -974,11 +836,8 @@ a.mobile-show {
   letter-spacing: 7px;
 }
 
-/* -----------------------------------------------------------------------------
 
-# Footer Styles
 
------------------------------------------------------------------------------ */
 .single-logo-item img {
   max-width: 180px;
   margin: 0 auto;
@@ -1119,11 +978,8 @@ h2.widget-title:after {
   color: #f28123;
 }
 
-/* -----------------------------------------------------------------------------
 
-# Hover Styles
 
------------------------------------------------------------------------------ */
 a.navbar-brand {
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
@@ -1303,10 +1159,8 @@ input[type="submit"] {
   border-radius: 50px !important;
 }
 
-/* input[type="submit"]:hover {
-  background-color: #051922;
-  color: #F28123;
-} */
+
+
 
 .submit:hover {
   background-color: #051922;
@@ -1493,11 +1347,8 @@ a.mobile-show.search-bar-icon:hover {
   color: #f28123;
 }
 
-/* -----------------------------------------------------------------------------
 
-# Hero Styles
 
------------------------------------------------------------------------------ */
 .hero-bg {
   background-image: url(assets/images/hero-bg.jpg);
   background-size: cover;
@@ -1594,17 +1445,8 @@ body {
   height: 600px;
 }
 
-/* input[type="submit"] {
-  background-color: #F28123;
-  color: #051922;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 15px;
-  border: none !important;
-  cursor: pointer;
-  padding: 15px 25px;
-  border-radius: 3px;
-} */
+
+
 
 .submit {
   background-color: #f28123;
@@ -1697,11 +1539,8 @@ div.owl-controls,
   margin-top: -30px;
 }
 
-/* -----------------------------------------------------------------------------
 
-# List Styles
 
------------------------------------------------------------------------------ */
 .list-section {
   background-color: #f5f5f5;
 }
@@ -1723,18 +1562,8 @@ div.owl-controls,
   opacity: 0.75;
 }
 
-/* .list-box .list-icon i {
-  display: block;
-  font-size: 24px;
-  margin-right: 15px;
-  color: #F28123;
-  width: 65px;
-  height: 65px;
-  text-align: center;
-  line-height: 60px;
-  border: 2px #F28123 dotted;
-  border-radius: 999px;
-} */
+
+
 
 .list-box .list-icon {
   display: flex;
@@ -1750,11 +1579,8 @@ div.owl-controls,
   border-radius: 50%;
 }
 
-/* -----------------------------------------------------------------------------
 
-# News Styles
 
------------------------------------------------------------------------------ */
 .news-bg-1 {
   background-image: url(assets/images/latest-news/news-bg-1.jpg);
 }
@@ -2057,11 +1883,8 @@ span.comment-date {
   margin-right: 5px;
 }
 
-/* -----------------------------------------------------------------------------
 
-# Cart Banner Styles
 
------------------------------------------------------------------------------ */
 .cart-banner {
   background-color: #f5f5f5;
 }
@@ -2162,11 +1985,8 @@ span.comment-date {
   letter-spacing: 1px;
 }
 
-/* -----------------------------------------------------------------------------
 
-# Testimonial Styles
 
------------------------------------------------------------------------------ */
 .client-avater {
   margin-bottom: 20px;
 }
@@ -2215,23 +2035,20 @@ p.testimonial-body {
   margin: 0 auto;
 }
 
-/* -----------------------------------------------------------------------------
 
-# About Styles
 
------------------------------------------------------------------------------ */
 a.video-play-btn {
-  /* position: relative; */
+  
   background-color: #f28123;
   color: #051922;
   width: 90px;
   height: 90px;
-  /* text-align: center; */
+  
   line-height: 92px;
-  /* border-radius: 50%; */
+  
   font-size: 20px;
   padding-left: 5px;
-  /* display: block; */
+  
   z-index: 2;
   -webkit-box-shadow: 0 0 20px #adadad;
   box-shadow: 0 0 20px #adadad;
@@ -2295,11 +2112,8 @@ a.video-play-btn {
   margin-bottom: 0;
 }
 
-/* -----------------------------------------------------------------------------
 
-# Shop Banner Styles
 
------------------------------------------------------------------------------ */
 .shop-banner {
   position: relative;
   background-color: #f5f5f5;
@@ -2333,31 +2147,15 @@ a.video-play-btn {
   display: inline-block;
 }
 
-/* -----------------------------------------------------------------------------
 
-# About Page Styles
 
------------------------------------------------------------------------------ */
 .feature-bg {
   position: relative;
   margin: 100px 0;
 }
 
-/* .feature-bg:after {
-  background-image: url(assets/images/feature-bg.jpg);
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 40%;
-  height: 100%;
-  content: "";
-  background-size: cover;
-  background-position: center;
-  border-top-left-radius: 5px;
-  -webkit-box-shadow: 0 0 20px #cacaca;
-  box-shadow: 0 0 20px #cacaca;
-  border-bottom-left-radius: 5px;
-} */
+
+
 .image-section {
   width: 85%;
   height: 100%;
@@ -2437,8 +2235,7 @@ ul.social-link-team li a {
   background-color: #f28123;
   width: 32px;
   height: 32px;
-  /* line-height: 32px; */
-  /* text-align: center; */
+  
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -2446,11 +2243,8 @@ ul.social-link-team li a {
   margin: 5px;
 }
 
-/* -----------------------------------------------------------------------------
 
-# Contact Page Styles
 
------------------------------------------------------------------------------ */
 .form-title {
   margin-bottom: 25px;
 }
@@ -2464,12 +2258,8 @@ ul.social-link-team li a {
   line-height: 1.8;
 }
 
-/* .contact-form form p input[type=text], .contact-form form p input[type=tel], .contact-form form p input[type=email] {
-  width: 49%;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-} */
+
+
 
 .contact-form form input,
 .regiter-form form input {
@@ -2520,12 +2310,8 @@ ul.social-link-team li a {
   margin-bottom: 10px;
 }
 
-/* .contact-form-box h4 i {
-  position: absolute;
-  left: -13%;
-  color: #F28123;
-  top: 2px;
-} */
+
+
 .contact-form-box h4 svg {
   fill: #f28123;
 }
@@ -2595,11 +2381,8 @@ ul.social-link-team li a {
   margin-bottom: 10px;
 }
 
-/* -----------------------------------------------------------------------------
 
-# Shop Page Styles
 
------------------------------------------------------------------------------ */
 .product-filters {
   margin-bottom: 80px;
 }
@@ -2633,10 +2416,6 @@ ul.social-link-team li a {
   margin-bottom: 30px;
 }
 
-/* .product-image {
-  padding: 30px;
-  padding-bottom: 0;
-} */
 
 .product-image {
   transition: all 400ms ease;
@@ -2674,16 +2453,6 @@ a.cart-btn {
   padding: 10px 20px;
 }
 
-/* .cart-border-btn{
-  font-family: "Poppins", sans-serif;
-  display: inline-block;
-  background-color: transparent;
-  border: 2px sloid #f28123;
-  color: #f28123;
-  border-radius: 50px;
-  padding: 10px 20px;
-  outline: none;
-} */
 
 button.cart-btn {
   font-family: "Poppins", sans-serif;
@@ -2977,11 +2746,7 @@ table.order-details tbody td {
   border-radius: 5px;
 }
 
-/* -----------------------------------------------------------------------------
 
-# 404 Page Styles
-
------------------------------------------------------------------------------ */
 .error-text i {
   font-size: 90px;
   margin-bottom: 30px;

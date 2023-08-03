@@ -225,7 +225,7 @@ const UserProducts = () => {
               )}
             </div>
             <div className="m-2 p-3 d-flex align-items-center justify-content-center">
-              {products && products.length < total && (
+              {products && products?.length > 0 && products.length < total && (
                 <button
                   className="cart-btn loadmore"
                   onClick={(e) => {
