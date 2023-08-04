@@ -4,7 +4,6 @@ import { useAuth } from "../context/auth";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/cart";
-import { toast } from "react-toastify";
 import { Badge, Card } from "antd";
 import { BsFillCartFill } from "react-icons/bs";
 // import { BiSupport } from "react-icons/bi";

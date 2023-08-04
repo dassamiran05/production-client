@@ -221,17 +221,17 @@ const UpdateProduct = () => {
                   <Option value="1">Yes</Option>
                 </Select>
               </div>
-              <div className="d-flex justify-content-center justify-content-md-end gap-2">
-                <div className="mb-3">
+              <div className="d-flex justify-content-center justify-content-md-end gap-2 align-items-center">
+                {/* <div className="mb-3"> */}
                   <button className="bordered-btn" onClick={handleDelete}>
                     DELETE
                   </button>
-                </div>
-                <div className="mb-3">
+                {/* </div> */}
+                {/* <div className="mb-3"> */}
                   <button className="boxed-btn" onClick={handleUpdate}>
                     UPDATE
                   </button>
-                </div>
+                {/* </div> */}
               </div>
             </div>
           </div>

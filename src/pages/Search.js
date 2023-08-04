@@ -4,11 +4,17 @@ import Layout from "../components/layout/Layout";
 import Banner from "../components/common/Banner";
 import { useCart } from "../context/cart";
 import { useNavigate } from "react-router-dom";
+import useCategory from "../hooks/useCategory";
+import { Badge } from "antd";
 const Search = () => {
   const [values, setValues] = useSearch();
-  console.log(values);
+  const categories = useCategory();
   const { handleAddToCart } = useCart();
   const navigate = useNavigate();
+
+  const handlecategoryName = (id) => {
+    return categories.find((category) => category._id === id)?.name;
+  };
   return (
     <Layout title={"Search results"}>
       <Banner subheading="Lorem ipsum lorem" heading="Search Page" />
@@ -25,11 +31,16 @@ const Search = () => {
             {values?.results?.map((p) => (
               <div className="col-md-4 col-12">
                 <div className="card m-2">
-                  <img
-                    src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
-                    className="card-img-top"
-                    alt={p.name}
-                  />
+                  <Badge.Ribbon
+                    text={handlecategoryName(p?.category)}
+                    color="#f28123"
+                  >
+                    <img
+                      src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
+                      className="card-img-top"
+                      alt={p.name}
+                    />
+                  </Badge.Ribbon>
                   <div className="card-body">
                     <h5 className="card-title">{p?.name}</h5>
                     <p className="card-text">

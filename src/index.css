@@ -390,9 +390,9 @@ button.boxed-btn{
   background-color: #f28123;
   color: #fff;
   padding: 5px 10px;
-  border: none;
   outline: none;
-  font-size: 14px;
+  font-size: 13px;
+  border: 2px solid #f28123;
 }
 
 a.bordered-btn {
@@ -415,7 +415,7 @@ button.bordered-btn {
   padding: 5px 10px;
   border-radius: 50px;
   background-color: transparent;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 a.read-more-btn {
@@ -999,6 +999,7 @@ a.boxed-btn {
 a.boxed-btn:hover, button.boxed-btn:hover {
   background-color: #051922;
   color: #f28123;
+  border-color: #051922;
 }
 
 a.bordered-btn, button.bordered-btn  {
