@@ -129,8 +129,8 @@ const UpdateProduct = () => {
                 }}
                 value={category?.name}
               >
-                {categories?.map((c) => (
-                  <Option key={c._id} value={c._id}>
+                {categories?.map((c, index) => (
+                  <Option key={index + 1} value={c._id}>
                     {c.name}
                   </Option>
                 ))}
@@ -223,14 +223,14 @@ const UpdateProduct = () => {
               </div>
               <div className="d-flex justify-content-center justify-content-md-end gap-2 align-items-center">
                 {/* <div className="mb-3"> */}
-                  <button className="bordered-btn" onClick={handleDelete}>
-                    DELETE
-                  </button>
+                <button className="bordered-btn" onClick={handleDelete}>
+                  DELETE
+                </button>
                 {/* </div> */}
                 {/* <div className="mb-3"> */}
-                  <button className="boxed-btn" onClick={handleUpdate}>
-                    UPDATE
-                  </button>
+                <button className="boxed-btn" onClick={handleUpdate}>
+                  UPDATE
+                </button>
                 {/* </div> */}
               </div>
             </div>

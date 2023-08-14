@@ -1,9 +1,11 @@
 import { useState, useContext, createContext, useEffect } from "react";
 import { toast } from "react-toastify";
+// import { useAuth } from "./auth";
 
 const CartContext = createContext();
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  // const [auth, setAuth] = useAuth();
 
   useEffect(() => {
     let existingCartItem = localStorage.getItem("cart")
@@ -11,14 +13,6 @@ const CartProvider = ({ children }) => {
       : "";
     if (existingCartItem) setCart(JSON.parse(existingCartItem));
   }, []);
-
-  // const handleAddToCart = (product) => {
-  //   console.log(product);
-  //   setCart([...cart, product]);
-  //   localStorage.setItem("cart", JSON.stringify([...cart, product]));
-  //   toast.success("Item Added to cart");
-
-  // };
 
   //Add to cart functionality
   const handleAddToCart = (product, value = null) => {
@@ -37,6 +31,7 @@ const CartProvider = ({ children }) => {
       setCart(newCartItems);
       localStorage.setItem("cart", JSON.stringify(newCartItems));
     }
+
     toast.success(
       `${
         value

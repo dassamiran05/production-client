@@ -25,7 +25,7 @@ const Users = () => {
   }, []);
   return (
     <Layout tilte="Users - Ecommerce app">
-      <div className="container-fluid">
+      <div className="container">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />
@@ -44,10 +44,10 @@ const Users = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users?.map((user, i) => {
+                  {users?.map((user, index) => {
                     return (
-                      <tr>
-                        <td>{i + 1}</td>
+                      <tr key={index + 1}>
+                        <td>{index + 1}</td>
                         <td>{user?.name}</td>
                         <td>{user?.email}</td>
                         <td>{user?.phone}</td>

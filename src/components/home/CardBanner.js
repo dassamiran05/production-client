@@ -3,8 +3,10 @@ import CountDown from "./CountDown";
 import { Link } from "react-router-dom";
 import { BsFillCartFill } from "react-icons/bs";
 import strawberry from "../../assets/img/a.jpg";
+import { useCart } from "../../context/cart";
 
-const CardBanner = () => {
+const CardBanner = ({product}) => {
+  const {handleAddToCart} = useCart();
   return (
     <>
       <section className="cart-banner pt-80 pb-80">
@@ -36,9 +38,9 @@ const CardBanner = () => {
               </div>
               {/*Countdown Timer*/}
               <CountDown />
-              <Link to={"#"} className="cart-btn mt-3">
+              <button  className="cart-btn mt-3" onClick={() => handleAddToCart(product)}>
                 <BsFillCartFill /> Add to Cart
-              </Link>
+              </button>
             </div>
           </div>
         </div>

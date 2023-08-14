@@ -9,11 +9,25 @@ import DropIn from "braintree-web-drop-in-react";
 import axios from "axios";
 import Banner from "../components/common/Banner";
 import { Select } from "antd";
+import Img from "../components/lazyloadimage/Img";
 const { Option } = Select;
+
+const dropdownOptions = [
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3", label: "3" },
+  { value: "4", label: "4" },
+  { value: "5", label: "5" },
+  { value: "6", label: "6" },
+  { value: "7", label: "7" },
+  { value: "8", label: "8" },
+  { value: "9", label: "9" },
+  { value: "10", label: "10" },
+];
 
 const CartPage = () => {
   const [auth, setAuth] = useAuth();
-  const { cart, setCart, handleAddToCart} = useCart();
+  const { cart, setCart, handleAddToCart } = useCart();
   const [clientToken, setClientToken] = useState("");
   const [instance, setInstance] = useState("");
   const [loading, setLoading] = useState(false);
@@ -115,19 +129,17 @@ const CartPage = () => {
             <div className="col-md-7  p-0 m-0">
               {cart?.map((p) => (
                 <div
-                  className={`row card flex-row me-0 me-md-3 ${
-                    cart?.length > 1 ? "mb-3" : "mb-0"
-                  } ps-2 ps-md-0`}
+                  className={`row card flex-row me-0 me-md-3 mb-3 ps-0`}
                   key={p._id}
                 >
                   <div className="col-md-4 p-2">
-                    <img
-                      src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
-                      className="card-img-top"
-                      alt={p.name}
-                      width="100%"
-                      height={"130px"}
-                    />
+                    <div className="w-100 h-100">
+                      <Img
+                        src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
+                        className="card-img-top w-100 h-100 cartImg"
+                        alt={p.name}
+                      />
+                    </div>
                   </div>
                   <div className="col-md-4 p-2">
                     <div className="w-100 h-100 d-flex flex-column justify-content-center align-items-center align-items-md-start">
@@ -141,23 +153,12 @@ const CartPage = () => {
                     </div>
                   </div>
                   <div className="col-md-4 cart-remove-btn d-flex align-items-center justify-content-center justify-content-md-start mb-3 mb-md-0">
-                    <div className="d-flex align-items-center gap-2">
+                    <div className="d-flex align-items-center gap-2 flex-md-column flex-lg-row">
                       <Select
                         defaultValue={p?.qty}
                         style={{ borderRadius: "50px" }}
                         onChange={(value) => handleAddToCart(p, value)}
-                        options={[
-                          { value: "1", label: "1" },
-                          { value: "2", label: "2" },
-                          { value: "3", label: "3" },
-                          { value: "4", label: "4" },
-                          { value: "5", label: "5" },
-                          { value: "6", label: "6" },
-                          { value: "7", label: "7" },
-                          { value: "8", label: "8" },
-                          { value: "9", label: "9" },
-                          { value: "10", label: "10" },
-                        ]}
+                        options={dropdownOptions}
                       />
                       <button
                         className="btn btn-danger"
@@ -205,42 +206,6 @@ const CartPage = () => {
                       </button>
                     </>
                   )}
-                  {/* {auth?.user?.address ? (
-                <>
-                  <div className="mb-3">
-                    <h4>Current Address</h4>
-                    <h5>{auth?.user?.address}</h5>
-                    <button
-                      className="btn btn-outline-warning"
-                      onClick={() => navigate("/dashboard/user/profile")}
-                    >
-                      Update Address
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <div className="mb-3">
-                  {auth?.token ? (
-                    <button
-                      className="btn btn-outline-warning"
-                      onClick={() => navigate("/dashboard/user/profile")}
-                    >
-                      Update Address
-                    </button>
-                  ) : (
-                    <button
-                      className="btn btn-outline-warning"
-                      onClick={() =>
-                        navigate("/login", {
-                          state: "/cart",
-                        })
-                      }
-                    >
-                      Plase Login to checkout
-                    </button>
-                  )}
-                </div>
-              )} */}
                   <div className="mt-2">
                     {!clientToken || !auth?.token || !cart?.length ? (
                       ""

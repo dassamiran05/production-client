@@ -3,7 +3,7 @@ import Layout from "../../components/layout/Layout";
 import UserMenu from "../../components/layout/UserMenu";
 import { useAuth } from "../../context/auth";
 import { BiEdit } from "react-icons/bi";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 

@@ -1,8 +1,7 @@
-import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { BsCartFill } from "react-icons/bs";
 import { useAuth } from "../../context/auth";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import SearchInput from "../form/SearchInputs";
 import useCategory from "../../hooks/useCategory";
@@ -10,10 +9,9 @@ import { useCart } from "../../context/cart";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
-  const {cart, setCart} = useCart();
-  const navigate = useNavigate();
-
+  const { cart } = useCart();
   const categories = useCategory();
+  const location = useLocation();
 
   const handleLogout = () => {
     setAuth({
@@ -25,6 +23,10 @@ const Header = () => {
     toast.success("Logout Successfully");
     // navigate('/login');
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -68,9 +70,9 @@ const Header = () => {
                       All Categories
                     </NavLink>
                   </li>
-                  {categories?.map((c) => (
+                  {categories?.map((c, index) => (
                     <>
-                      <li className="cat-link" key={c._id}>
+                      <li className="cat-link" key={index}>
                         <NavLink
                           className="dropdown-item"
                           to={`/category/${c?.slug}`}

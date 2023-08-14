@@ -5,30 +5,57 @@ import { useNavigate } from "react-router-dom";
 import { Prices } from "../../components/Prices";
 import Layout from "../../components/layout/Layout";
 import "./userproducts.css";
-import { AiOutlineReload } from "react-icons/ai";
 import { useCart } from "../../context/cart";
-import { toast } from "react-toastify";
-import Banner from "../../components/common/Banner";
+import Spinner from "../../components/spinner/Spinner";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Img from "../../components/lazyloadimage/Img";
+import useCategory from "../../hooks/useCategory";
+import useTotal from "../../hooks/useTotal";
+
+// let filteroptions = {};
 
 const UserProducts = () => {
   const navigate = useNavigate();
+  const categories = useCategory();
+  const total = useTotal();
   const { handleAddToCart } = useCart();
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
-  const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
+  const [filterProducts, setFilterProducts] = useState([]);
+  const [isfilter, setIsfilter] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [filterOption, setFilterOptions] = useState({ checked: [], radio: [] });
 
-  //get all cat
-  const getAllCategory = async () => {
+  const getAllProducts = async () => {
     try {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/category/allcategories`
+      setLoading(true);
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`
       );
-      if (data?.success) {
-        setCategories(data?.categories);
+      if (data?.products) {
+        setLoading(false);
+        setProducts(data.products);
+
+        setPage((prev) => prev + 1);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
+  const fetchNextPageData = async () => {
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`
+        // `${process.env.REACT_APP_API}/api/v1/product/product-filters/${page}`
+      );
+
+      if (data?.products) {
+        setProducts([...products, ...data?.products]);
+        setPage((prev) => prev + 1);
       }
     } catch (error) {
       console.log(error);
@@ -36,116 +63,112 @@ const UserProducts = () => {
   };
 
   useEffect(() => {
-    getAllCategory();
-    getTotal();
-  }, []);
-  //get products
-  const getAllProducts = async () => {
-    try {
-      setLoading(true);
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`
-      );
-      setLoading(false);
-      setProducts(data.products);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  };
+    console.log(page);
+  }, [page]);
 
   // filter by cat
-  const handleFilter = (value, id) => {
-    let all = [...checked];
-    if (value) {
-      all.push(id);
-    } else {
-      all = all.filter((c) => c !== id);
-    }
-    setChecked(all);
-  };
+  // const handleFilter = (value, id) => {
+  //   let all = [...checked];
 
-  useEffect(() => {
-    if (!checked.length || !radio.length) getAllProducts();
-  }, [checked.length, radio.length]);
-
-  useEffect(() => {
-    if (checked.length || radio.length) filterProduct();
-  }, [checked, radio]);
+  //   if (value) {
+  //     all.push(id);
+  //   } else {
+  //     all = all.filter((c) => c !== id);
+  //   }
+  //   setChecked(all);
+  // };
 
   //get filterd product
   const filterProduct = async () => {
+    setLoading(true);
     try {
       const { data } = await axios.post(
+        // `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`,
         `${process.env.REACT_APP_API}/api/v1/product/product-filters`,
-        {
-          checked,
-          radio,
-        }
+        filterOption
       );
-      setProducts(data?.products);
+      console.log(data?.products);
+      if (data?.products) {
+        setFilterProducts(data?.products);
+        setLoading(false);
+      }
     } catch (error) {
       console.log(error);
-    }
-  };
-
-  const resetFilterHandle = () => {
-    setRadio([]);
-    setChecked([]);
-  };
-
-  //getTOtal COunt
-  const getTotal = async () => {
-    try {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/product/product-count`
-      );
-      setTotal(data?.total);
-    } catch (error) {
-      console.log(error);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (page === 1) return;
-    loadMore();
-  }, [page]);
-
-  //load more
-  const loadMore = async () => {
-    try {
-      setLoading(true);
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`
-      );
-      setLoading(false);
-      setProducts([...products, ...data?.products]);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
+    const { checked, radio } = filterOption;
+    if (!checked?.length && !radio?.length) {
+      setIsfilter(false);
+      getAllProducts();
     }
+  }, [filterOption?.checked?.length, filterOption?.radio?.length, isfilter]);
+
+  useEffect(() => {
+    const { checked, radio } = filterOption;
+    if (checked?.length || radio?.length) {
+      setIsfilter(true);
+      filterProduct();
+    }
+  }, [filterOption?.checked, filterOption?.radio, isfilter]);
+
+  const resetFilterHandle = () => {
+    // setRadio([]);
+    // setChecked([]);
+    setFilterOptions({ checked: [], radio: [] });
+    setPage(1);
+    setIsfilter(false);
   };
+
+  const handleFilter = (e) => {
+    let newFilteroption;
+    if (e.target.type == "checkbox") {
+      if (e.target.checked) {
+        newFilteroption = {
+          ...filterOption,
+          checked: [...filterOption?.checked, e.target.value],
+        };
+      } else {
+        newFilteroption = {
+          ...filterOption,
+          checked: filterOption?.checked?.filter(
+            (item) => item !== e.target.value
+          ),
+        };
+      }
+    } else {
+      newFilteroption = { ...filterOption, radio: e.target.value };
+    }
+    setFilterOptions(newFilteroption);
+  };
+
   return (
     <Layout title={"ALl Products - Best offers "}>
-      <Banner subheading="Loren ipsum lorem" heading="All Products" />
       <div className="container my-5">
         <div className="row">
-          <div className="col-md-3 filters">
+          <div className="col-md-3 filters mb-3 mb-md-0">
             <h4 className="text-center pb-2">Filter By Category</h4>
             <div className="d-flex flex-column">
               {categories?.map((c) => (
                 <Checkbox
                   key={c._id}
-                  onChange={(e) => handleFilter(e.target.checked, c._id)}
+                  value={c._id}
+                  // onChange={(e) => handleFilter(e.target.checked, c._id)}
+                  onChange={handleFilter}
                 >
-                  {c.name}
+                  {c?.name}
                 </Checkbox>
               ))}
             </div>
             {/* price filter */}
             <h4 className="text-center mt-4 pb-2">Filter By Price</h4>
             <div className="d-flex flex-column">
-              <Radio.Group onChange={(e) => setRadio(e.target.value)}>
+              <Radio.Group
+                // onChange={handleRadio}
+                onChange={handleFilter}
+              >
                 {Prices?.map((p) => (
                   <div key={p._id}>
                     <Radio value={p.array}>{p.name}</Radio>
@@ -154,96 +177,151 @@ const UserProducts = () => {
               </Radio.Group>
             </div>
             <div className="d-flex flex-column">
-              <button
-                className="cart-btn"
-                // onClick={() => window.location.reload()}
-                onClick={resetFilterHandle}
-              >
+              <button className="cart-btn" onClick={resetFilterHandle}>
                 RESET FILTERS
               </button>
             </div>
           </div>
           <div className="col-md-9 ">
-            <div className="d-flex flex-wrap">
-              {products && products.length > 0 ? (
-                <>
-                  {products?.map((p) => (
-                    <div className="col-md-4 col-12" key={p._id}>
-                      <div className="card m-2">
-                        <img
-                          src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
-                          className="userproduct-img"
-                          alt={p.name}
-                        />
-                        <div className="card-body">
-                          <div className="card-name-price">
-                            <h5 className="card-title">{p.name}</h5>
-                            <h5 className="card-title card-price">
-                              {p.price.toLocaleString("en-US", {
-                                style: "currency",
-                                currency: "USD",
-                              })}
-                            </h5>
+            {loading && <Spinner initial={true} />}
+            {!loading && (
+              <>
+                {!isfilter && (
+                  <>
+                    {products?.length > 0 ? (
+                      <>
+                        <InfiniteScroll
+                          className="overflow-hidden"
+                          dataLength={products?.length || []}
+                          next={fetchNextPageData}
+                          // hasMore={page < Math.ceil(total / 6)}
+                          hasMore={products?.length < total}
+                          loader={<Spinner />}
+                        >
+                          <div className="row">
+                            {products?.map((p) => (
+                              <div
+                                className="col-lg-4 col-md-6 col-12"
+                                key={p?._id}
+                              >
+                                <div className="card mb-4">
+                                  <Img
+                                    className="userproduct-img"
+                                    src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p?._id}`}
+                                  />
+                                  <div className="card-body">
+                                    <div className="card-name-price">
+                                      <h5 className="card-title">{p?.name}</h5>
+                                      <h5 className="card-title card-price">
+                                        {p?.price?.toLocaleString("en-US", {
+                                          style: "currency",
+                                          currency: "USD",
+                                        })}
+                                      </h5>
+                                    </div>
+                                    <p className="card-text ">
+                                      {p?.description?.substring(0, 60)}...
+                                    </p>
+                                    <div className="card-name-price d-flex justify-content-center justify-content-md-start gap-1">
+                                      <button
+                                        className="bordered-btn"
+                                        onClick={() =>
+                                          navigate(`/product/${p?.slug}`)
+                                        }
+                                      >
+                                        More Details
+                                      </button>
+                                      <button
+                                        className="boxed-btn"
+                                        onClick={() => {
+                                          handleAddToCart(p);
+                                        }}
+                                      >
+                                        ADD TO CART
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
                           </div>
-                          <p className="card-text ">
-                            {p.description.substring(0, 60)}...
-                          </p>
-                          <div className="card-name-price d-flex justify-content-center justify-content-md-start gap-1">
-                            <button
-                              className="bordered-btn"
-                              onClick={() => navigate(`/product/${p.slug}`)}
-                            >
-                              More Details
-                            </button>
-                            <button
-                              className="boxed-btn"
-                              onClick={() => {
-                                handleAddToCart(p);
-                                // setCart([...cart, p]);
-                                // localStorage.setItem(
-                                //   "cart",
-                                //   JSON.stringify([...cart, p])
-                                // );
-                                // toast.success("Item Added to cart");
-                              }}
-                            >
-                              ADD TO CART
-                            </button>
-                          </div>
-                        </div>
+                        </InfiniteScroll>
+                      </>
+                    ) : (
+                      <div
+                        className="w-100 d-flex align-items-center justify-content-center"
+                        style={{ height: "400px" }}
+                      >
+                        <p className="fs-4 fw-500">Sorry No data found</p>
                       </div>
-                    </div>
-                  ))}
-                </>
-              ) : (
-                <div
-                  className="w-100 d-flex align-items-center justify-content-center"
-                  style={{ height: "400px" }}
-                >
-                  <p className="fs-4 fw-500">Sorry No data found</p>
-                </div>
-              )}
-            </div>
-            <div className="m-2 p-3 d-flex align-items-center justify-content-center">
-              {products && products?.length > 0 && products.length < total && (
-                <button
-                  className="cart-btn loadmore"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setPage(page + 1);
-                  }}
-                >
-                  {loading ? (
-                    "Loading ..."
-                  ) : (
-                    <>
-                      {" "}
-                      Loadmore <AiOutlineReload />
-                    </>
-                  )}
-                </button>
-              )}
-            </div>
+                    )}
+                  </>
+                )}
+
+                {isfilter && (
+                  <>
+                    {filterProducts?.length > 0 ? (
+                      <>
+                        <div className="row">
+                          {filterProducts?.map((p) => (
+                            <div
+                              className="col-lg-4 col-md-6 col-12"
+                              key={p?._id}
+                            >
+                              <div className="card mb-4">
+                                <Img
+                                  className="userproduct-img"
+                                  src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p?._id}`}
+                                />
+                                <div className="card-body">
+                                  <div className="card-name-price">
+                                    <h5 className="card-title">{p?.name}</h5>
+                                    <h5 className="card-title card-price">
+                                      {p?.price?.toLocaleString("en-US", {
+                                        style: "currency",
+                                        currency: "USD",
+                                      })}
+                                    </h5>
+                                  </div>
+                                  <p className="card-text ">
+                                    {p?.description?.substring(0, 60)}...
+                                  </p>
+                                  <div className="card-name-price d-flex justify-content-center justify-content-md-start gap-1">
+                                    <button
+                                      className="bordered-btn"
+                                      onClick={() =>
+                                        navigate(`/product/${p?.slug}`)
+                                      }
+                                    >
+                                      More Details
+                                    </button>
+                                    <button
+                                      className="boxed-btn"
+                                      onClick={() => {
+                                        handleAddToCart(p);
+                                      }}
+                                    >
+                                      ADD TO CART
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <div
+                        className="w-100 d-flex align-items-center justify-content-center"
+                        style={{ height: "400px" }}
+                      >
+                        <p className="fs-4 fw-500">Sorry No data found</p>
+                      </div>
+                    )}
+                  </>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>

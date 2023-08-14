@@ -26,6 +26,8 @@ const Register = () => {
                 }, 1000);
             }else{
                 toast.error(res.data.message);
+                setFormValues(initialvalues);
+
             }
 
         }catch(error){
@@ -61,13 +63,13 @@ const Register = () => {
                             <input type="email" placeholder="Email" name="email" id="email" value={formValues.email} onChange={handleChangeInput}/>
                         </div>
                         <div className="col-12 mb-4">
-                            <input type="password" placeholder="Password" name="password" id="password" value={formValues.password} onChange={handleChangeInput}/>
+                            <input type="password" placeholder="Password" name="password" id="password" value={formValues.password} onChange={handleChangeInput} autoComplete="new-password"/>
                         </div>
                         <div className="col-12 mb-4">
                             <input type="tel" placeholder="Phone" name="phone" id="phone" value={formValues.phone} onChange={handleChangeInput}/>
                         </div>
                         <div className="col-12 mb-3">
-                            <textarea name="address" id="address" cols="30" rows="10" placeholder="Enter address" value={formValues.address} onChange={handleChangeInput}></textarea>
+                            <textarea name="address" id="address" cols="30" rows="3" placeholder="Enter address" value={formValues.address} onChange={handleChangeInput}></textarea>
                         </div>
                         <div className="col-12 mb-4">
                             <input type="text" placeholder="what is your favourite sports?" name="answer" id="answer" value={formValues.answer} onChange={handleChangeInput}/>

@@ -1,8 +1,10 @@
 import React from "react";
 import { AiOutlinePlayCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { Playicon } from "../playIcon/Playicon";
 
-const VideoSection = () => {
+const VideoSection = ({setShow}) => {
+  
   return (
     <>
       <div className="abt-section mb-100">
@@ -10,12 +12,16 @@ const VideoSection = () => {
           <div className="row">
             <div className="col-lg-6 col-md-12">
               <div className="abt-bg d-flex align-items-center justify-content-center">
-                <Link
-                  to={"https://youtu.be/7LDm72BgRGI"}
-                  className="video-play-btn popup-youtube text-center rounded-circle d-block position-relative"
+
+                <div
+                  className="playbtn d-flex align-items-center justify-content-center"
+                  onClick={() => {
+                    setShow(true);
+                    // setVideoId(video.key);
+                  }}
                 >
-                  <AiOutlinePlayCircle />
-                </Link>
+                  <Playicon />
+                </div>
               </div>
             </div>
             <div className="col-lg-6 col-md-12">

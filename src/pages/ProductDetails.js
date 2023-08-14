@@ -6,6 +6,7 @@ import Layout from "../components/layout/Layout";
 import Banner from "../components/common/Banner";
 import { Typography } from "antd";
 import { useCart } from "../context/cart";
+import Img from "../components/lazyloadimage/Img";
 
 const { Text } = Typography;
 
@@ -49,38 +50,18 @@ const ProductDetails = () => {
       <div className="container product-details">
         <div className="row">
           <div className="col-md-6">
-            <img
+            <Img
               src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`}
-              className="card-img-top"
+              className="card-img-top w-100 h-auto"
               alt={product.name}
-              height="300"
-              width={"350px"}
             />
           </div>
           <div className="col-md-6 product-details-info">
-            {/* <h1 className="text-center">Product Details</h1>
-            <hr /> */}
             <h6>Name : {product.name}</h6>
             <h6>
               Catgeory: <Text mark>{product?.category?.name}</Text>
             </h6>
             <h6>Description : {product.description}</h6>
-            {/* <div className="d-flex gap-3 mt-2 shadow-lg w-40 py-2 px-1">
-              <p className="d-flex align-items-center justify-content-center">Qty:</p>
-              <p
-                className="d-flex align-items-center justify-content-center px-3 py-1  rounded-md"
-                onClick={() => handleAddToCart(product)}
-              >
-                -
-              </p>
-              <p className="d-flex align-items-center justify-content-center">{product?.qty}</p>
-              <p
-                className="d-flex align-items-center justify-content-center px-3 py-1  rounded-md"
-                onClick={() => handleAddToCart(product)}
-              >
-                +
-              </p>
-            </div> */}
             <h6>
               Price :
               {product?.price?.toLocaleString("en-US", {
@@ -101,56 +82,50 @@ const ProductDetails = () => {
         <hr />
         <div className="row similar-products mb-3">
           <h4>Similar Products ➡️</h4>
-          {relatedProducts.length < 1 && (
+          {relatedProducts?.length < 1 && (
             <p className="text-center">No Similar Products found</p>
           )}
-          <div className="d-flex flex-wrap">
-            {relatedProducts?.map((p) => (
-              <div className="card m-2" key={p._id}>
-                <img
-                  src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
-                  className="card-img-top"
-                  alt={p.name}
-                />
-                <div className="card-body">
-                  <div className="card-name-price">
-                    <h5 className="card-title">{p.name}</h5>
-                    <h5 className="card-title card-price">
-                      {p.price.toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "USD",
-                      })}
-                    </h5>
-                  </div>
-                  <p className="card-text ">
-                    {p.description.substring(0, 60)}...
-                  </p>
-                  <div className="card-name-price d-flex align-items-center justify-content-center gap-1">
-                    <button
-                      className="bordered-btn"
-                      onClick={() => navigate(`/product/${p.slug}`)}
-                    >
-                      More Details
-                    </button>
-                    <button
-                      className="boxed-btn"
-                      // onClick={() => {
-                      //   setCart([...cart, p]);
-                      //   localStorage.setItem(
-                      //     "cart",
-                      //     JSON.stringify([...cart, p])
-                      //   );
-                      //   toast.success("Item Added to cart");
-                      // }}
-                      onClick={() => handleAddToCart(p)}
-                    >
-                      ADD TO CART
-                    </button>
+          {relatedProducts?.length > 0 && (
+            <div className="d-flex flex-wrap">
+              {relatedProducts?.map((p) => (
+                <div className="card m-2" key={p._id}>
+                  <Img
+                    src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
+                    className="card-img-top"
+                    alt={p.name}
+                  />
+                  <div className="card-body">
+                    <div className="card-name-price">
+                      <h5 className="card-title">{p.name}</h5>
+                      <h5 className="card-title card-price">
+                        {p.price.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        })}
+                      </h5>
+                    </div>
+                    <p className="card-text ">
+                      {p.description.substring(0, 60)}...
+                    </p>
+                    <div className="card-name-price d-flex align-items-center justify-content-center gap-1">
+                      <button
+                        className="bordered-btn"
+                        onClick={() => navigate(`/product/${p.slug}`)}
+                      >
+                        More Details
+                      </button>
+                      <button
+                        className="boxed-btn"
+                        onClick={() => handleAddToCart(p)}
+                      >
+                        ADD TO CART
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </Layout>
